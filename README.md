@@ -1,5 +1,14 @@
-# Preparing Qualisys data for OpenSim processing
-## Preparation
+# Qualisys PAF – OpenSim example
+
+## Getting started
+To download this example project to your computer, you can either:
+
+* [Click here](https://github.com/qualisys/paf-opensim-example/archive/refs/heads/main.zip) to download it as a zip file.
+<br>_— or —_
+* Clone this repository to your computer.
+
+## Preparing Qualisys data for OpenSim processing
+### Preparation
 1. Install OpenSim 4.2 or later from https://simtk.org/frs/index.php?group_id=91 :
    1. Create an account on SimTK, download and install OpenSim. 
    *Note: OpenSim versions before 4.2 did not support importing data from Type-3 force plates (Kistler) from c3d files exported from Qualisys Track Manager.*
@@ -39,7 +48,7 @@
 4. Re-start QTM in case it is open
 
 
-## Converting files using QTM Project Automation Framework
+### Converting files using QTM Project Automation Framework
 1. Start QTM and open the project 'OpenSim Example' in QTM
 2. Use the Project view in QTM (Ctrl+R) to create a person and session or navigate to example files.
 3. Capture or import .qtm files, or use demo files.
@@ -53,11 +62,11 @@
 4. Right-click the session folder in the QTM Project view, select "Open folder in explorer" and locate .trc and .mot files.
 5. If the files are not generated, run the processing from the command line to get full error outputs (see next section).
 
-## Converting files from command line
+### Converting files from command line
 As an alternative to starting the conversion from QTM, you can start it from the command line using the file qtm2opensim.py (loacted in Templates folder):
 > python qtm2opensim.py --c3d_dir "[c3d file path]" --c3d_file "[c3d file name]"
 
-## Using the exported files in OpenSim
+### Using the exported files in OpenSim
 For detailed instructions or if you would like to use a different model, please refer to the OpenSim documentation.
 1. Start OpenSim
 2. Review data for one of the measurements:
@@ -90,4 +99,24 @@ For detailed instructions or if you would like to use a different model, please 
       8. You can now plot results of your Inverse Dynamics procedure by going to Tools -> Plot. Click on *Y-Quantity* and *Load File* to select the inverse_dynamics.sto output file automatically created at the previous step. Select the signals you want to plot and click *OK*. Click on *X_Quantity* and select *Time*. Finally click on your figure in the *Curves List* and then click on *Add* to see the curve in the graph
       9. For more details please refer to the OpenSim documentation, for example https://simtk-confluence.stanford.edu/display/OpenSim/How+to+Use+the+Inverse+Dynamics+Tool and https://simtk-confluence.stanford.edu/display/OpenSim/Tutorial+3+-+Scaling%2C+Inverse+Kinematics%2C+and+Inverse+Dynamics
 
+## Resources for using the Qualisys Project Automation Framework (PAF)
 
+The purpose of the ***Project Automation Framework*** (PAF) is to streamline the motion capture process from data collection to the final report. This repository contains an example project that illustrate how PAF can be used to implement custom automated data collection in [Qualisys Track Manager (QTM)](http://www.qualisys.com/software/qualisys-track-manager/), and how QTM can be connected to a processing engine. 
+
+### PAF Documentation
+
+The full documentation for PAF development is available here: [PAF Documentation](https://github.com/qualisys/paf-documentation).
+
+
+### PAF Examples
+
+Our official examples for various processing engines:
+
+- [Excel](https://github.com/qualisys/paf-excel-example)
+- [Matlab](https://github.com/qualisys/paf-matlab-example)
+- [OpenSim](https://github.com/qualisys/paf-opensim-example)
+- [Python](https://github.com/qualisys/paf-python-example)
+- [Theia Markerless](https://github.com/qualisys/paf-theia-markerless-example)
+- [Visual3D](https://github.com/qualisys/paf-visual3d-example)
+
+_As of QTM version 2.17, the official Qualisys PAF examples can be used without any additional license. Note that some more advanced analysis types require a license for the "PAF Framework Developer kit" (Article number 150300)._
