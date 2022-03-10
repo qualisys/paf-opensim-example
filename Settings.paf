@@ -3,6 +3,8 @@ Package Information:
   Name: OpenSim Example
   Version: 1.0.0
   Required QTM version: 2.16.3600
+  Encoding bytes: €€€€€
+
 Root type: Subject
 Default fields: [Creation date, Creation time]
 
