@@ -9,17 +9,21 @@ To download this example project to your computer, you can either:
 
 ## Preparing Qualisys data for OpenSim processing
 ### Preparation
-1. Install OpenSim 4.2 or later from https://simtk.org/frs/index.php?group_id=91 :
+1. Install OpenSim 4.2, 4.3 or 4.4 from https://simtk.org/frs/index.php?group_id=91
    1. Create an account on SimTK, download and install OpenSim. 
    *Note: OpenSim versions before 4.2 did not support importing data from Type-3 force plates (Kistler) from c3d files exported from Qualisys Track Manager.*
-2. Install Python 3.7.9 (64-bit) from https://www.python.org/ftp/python/3.7.9/python-3.7.9-amd64.exe.
-   1. Select the option to Add Python 3.7 to PATH and click "Install Now" in the first installation step.
+2. Choose the appropriate Python version
+   - If using OpenSim 4.2, then download Python 3.7.9 (64-bit) from https://www.python.org/ftp/python/3.7.9/python-3.7.9-amd64.exe.
+   - If using OpenSim 4.3 or 4.4, then download Python 3.8.10 (64-bit) from https://www.python.org/ftp/python/3.8.10/python-3.8.10-amd64.exe.
+3. Install Python software and packages
+   1. Select the option to Add Python to PATH and click "Install Now" in the first installation step.
    2. Verify Python installation by starting a Windows Command prompt and entering:
       ````
       python --version
       ````
-      This should return "Python 3.7.9". If not, verify that your Python installation folder is listed in Windows Environment variables -> Path
-   3. Install Python packages Start a Windows command prompt and run:
+      This should return the python version that has been installed. If not, verify that your Python installation folder is listed in Windows Environment variables -> Path
+   3. Install Python packages  
+      Start a Windows command prompt and run:
       ````
       pip install numpy
       pip install pandas
@@ -27,9 +31,9 @@ To download this example project to your computer, you can either:
       pip install matplotlib
       ````
       Matplotlib is optional, only required if you want to generate graphs to verify force data processing.
-   4. Close Windows Command Prompt.
+   4. Close the Windows Command Prompt.
 3. Connect Python with OpenSim
-   1. Insert OpenSim into the System Path:
+   1. *(Only for OpenSim 4.2)* Insert OpenSim into the System Path:
       1. Click the Windows Start icon and type "env". Click "Edit the system environment variables".
       2. Click "Envrionment Variables" button at the bottom.
       3. In "System Variables", locate "Path" and click Edit.
@@ -38,9 +42,10 @@ To download this example project to your computer, you can either:
    2. Run OpenSim setup file from command line:
       1. Open a new Windows Command Prompt
       2. Navigate to the OpenSim installation folder and locate the subfolder sdk\Python:
-         `cd C:\OpenSim 4.2\sdk\Python`
+         `cd C:\OpenSim 4.X\sdk\Python`
       3. Run the setup script:
-         `python setup.py install`
+         - If using OepnSim 4.2: `python setup.py install`
+         - If using OpenSim 4.3 or 4.4: `python setup_win_python38.py` then `python -m pip install .`
       4. Test the installation by typing:
          `python -c "import opensim"` 
          If there is no error, the installation was successful.
@@ -74,7 +79,8 @@ For detailed instructions or if you would like to use a different model, please 
    2. Repeat for .mot file (force data)
    3. Extend the ExperimentalData nodes, use Ctrl+click to select .trc and .mot data and select Sync motions
    4. Play files to confirm that marker and force data are aligned as expected.
-   5. Note: to change the orientation of the data, you can modify the settings for rotate_data_table in qtm2opensim.py
+   5. OpenSim 4.4 will offset the forces and markers in the Visualizer window. You can remove this offset by right-clicking on the second ExperimentalData node then select Display -> Model Offset 
+   6. Note: to change the orientation of the data, you can modify the settings for rotate_data_table in qtm2opensim.py
 3. Use data in OpenSim:
    1. Use File -> Open Model and load the example models from OpenSim Example\Templates\OpenSim. Examples for CAST and IOR marker sets are included.
    2. Select Tools -> Scale model:
