@@ -99,7 +99,7 @@ For detailed instructions or if you would like to use a different model, please 
       Note or change the path of the *Output* directory where the results of the Inverse Dynamics step are written
       2. In the *External Loads* tab, click on the edit icon to open the External Forces window
       3. Load the .mot file in *Force data file*
-      4. Click on *Add...* and enter a name for the right foot force assignment, ie "Right", and select *calcn_r* in the list of segments next to *Applied to*. Check *Applies Force* (*Point Force*) and *Applies Torque*. In the various drop downs, select the components of the correct force plate that is in contact with the right foot. Click on *OK*
+      4. Click on *Add...* and enter a name for the right foot force assignment, ie "Right", and select *calcn_r* in the list of segments next to *Applied to*. Check *Applies Force* (*Point Force*) and *Applies Torque*. In the various drop downs, select the components ('_v' suffix components for Force, '_p' suffix components for Point and '_torque' suffix components for Torque) of the correct force plate that is in contact with the right foot. Click on *OK*
       5. Replicate the previous step for the left foot force assignment (use *calcn_l*)
       6. Click on *Save* to save your external forces setup
       7. Save your Inverse Dynamics Tool setup (optional) and click on Run
