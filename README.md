@@ -79,7 +79,7 @@ For detailed instructions or if you would like to use a different model, please 
    2. Repeat for .mot file (force data)
    3. Extend the ExperimentalData nodes, use Ctrl+click to select .trc and .mot data and select Sync motions
    4. Play files to confirm that marker and force data are aligned as expected.
-   5. OpenSim 4.4 will offset the forces and markers in the Visualizer window. You can remove this offset by right-clicking on the second ExperimentalData node then select Display -> Model Offset 
+   5. OpenSim 4.4 will offset the forces and markers in the Visualizer window so that they are not on top of each other. This display offset is a display only property. The model itself is never affected by the changes to the display offset but you can remove this offset by right-clicking on the second ExperimentalData node then select Display -> Model Offset 
    6. Note: to change the orientation of the data, you can modify the settings for rotate_data_table in qtm2opensim.py
 3. Use data in OpenSim:
    1. Use File -> Open Model and load the example models from OpenSim Example\Templates\OpenSim. Examples for CAST and IOR marker sets are included.
