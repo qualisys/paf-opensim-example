@@ -124,6 +124,8 @@ Our official examples for various processing engines:
 - [OpenSim](https://github.com/qualisys/paf-opensim-example)
 - [Python](https://github.com/qualisys/paf-python-example)
 - [Theia Markerless](https://github.com/qualisys/paf-theia-markerless-example)
+- [Theia Markerless Comparison](https://github.com/qualisys/paf-theia-markerless-comparison-example)
+- [Theia Markerless True Hybrid](https://github.com/qualisys/paf-theia-markerless-true-hybrid-example)
 - [Visual3D](https://github.com/qualisys/paf-visual3d-example)
 
 _As of QTM version 2.17, the official Qualisys PAF examples can be used without any additional license. Note that some more advanced analysis types require a license for the "PAF Framework Developer kit" (Article number 150300)._
