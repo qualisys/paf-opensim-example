@@ -3,13 +3,10 @@
 # author: Dimitar Stanev <jimstanev@gmail.com>
 # https://github.com/mitkof6/opensim_automated_pipeline
 ##
-import re
-import os
+import scipy.signal
 import opensim
 import numpy as np
-import pandas as pd
-from scipy import linalg
-# import matplotlib.pyplot as plt # include this when generating plots to verify force filter
+import matplotlib.pyplot as plt # include this when generating plots to verify force filter
 
 def rotate_data_table(table, axis, deg):
     """Rotate OpenSim::TimeSeriesTableVec3 entries using an axis and angle.
@@ -42,82 +39,77 @@ def mm_to_m(table, label):
     for i in range(c.size()):
         c[i] = opensim.Vec3(c[i][0] * 0.001, c[i][1] * 0.001, c[i][2] * 0.001)
 
-def lowess_bell_shape_kern(t, v, label, tau=.0005, output_dir='.'):
-    """lowess_bell_shape_kern(t, v, tau = .005) -> vest Locally weighted
-    regression: fits a nonparametric regression curve to a
-    scatterplot.  The arrays t and v contain an equal number of
-    elements; each pair (t[i], v[i,j]) defines a data point in the
-    scatterplot. Depending on j, this corresponds to the x,y or z
-    column of the matrix v. The function returns the estimated
-    (smooth) values of each columns of y in a matrix.  The kernel
-    function is the bell shaped function with parameter tau. Larger
-    tau will result in a smoother curve.
+def get_valid_padlen(signal, A, B):
+    """ if signal is too short the defaultpadlen needs to change in order for the scipy filtfilt to work with padding """
+    padlen = 3 * max(len(A), len(B))  # from scipy default
+    signal_length = len(signal)
+    if signal_length <= padlen:
+        padlen = signal_length - 1
+    return padlen
 
+def lowpass_filter(signal, label, sampling_freq, order=4, cutoff=12, padtype="odd", output_dir='.'):
+    """ 
+    Given a signal, its sampling frequency in Hz and filter order
+
+    return the filtered signal
+
+    The defaul filter is a butterworth lowpass filter with given order, which gets applied twice
     """
-    r = len(t)
-
-    # convert tuple into np.array
-    t_np = np.zeros(r)
-    for i in range(r):
-        t_np[i] = t[i]
-
+    # instantiate variables
+    n_frames = signal.nrow()
+    signal_np = np.zeros((n_frames))
+    smooth_signal_list = []
+    # filter settings
+    nyq = 0.5 * sampling_freq
+    # The double filter should have 1/sqrt(2) transfer at cutoff, so we need correction for filter order
+    cutoff = cutoff / (np.sqrt(2) - 1) ** (0.5 / order)
+    Wn = cutoff / nyq
+    B, A = scipy.signal.butter(order, Wn, output="ba")
     # convert Vec3 into np.array
-    v_np = np.zeros((r, 3))
-    for i in range(r):
-        v_np[i, 0] = v[i][0]  # extract x component at each time step
-        v_np[i, 1] = v[i][1]
-        v_np[i, 2] = v[i][2]
+    for i in range(3):
+        for j in range(n_frames):
+            signal_np[j] = signal[j][i]  # extract component at each time step
+        
+        # padding
+        padlen = get_valid_padlen(signal_np, A, B)
 
-    # interpolate to replace NaN
-    v_int = np.zeros((r, 3))
-    for j in range(3):
-        v_pd = pd.Series(v_np[:, j])
-        v_pd = v_pd.interpolate(limit_direction="both", kind="cubic")
-        v_int[:, j] = v_pd.to_numpy()
+        # smoothing
+        smooth_signal_list.append(scipy.signal.filtfilt(B, A, signal_np, padtype=padtype, padlen=padlen))
 
-    # initializing all weights from the bell shape kernel function
-    for j in range(3):
-        w = [np.exp(- (t_np - t_np[i])**2/(2*tau)) for i in range(r)]
-
-    # looping through all v-points
-    vest = np.zeros((r, 3))
-    for j in range(3):
-        for i in range(r):
-            weights = w[i]
-            b = np.array([np.sum(weights * v_int[:, j]),
-                          np.sum(weights * v_int[:, j] * t_np)])
-            A = np.array([[np.sum(weights), np.sum(weights * t_np)],
-                          [np.sum(weights * t_np), np.sum(weights * t_np * t_np)]])
-            theta = linalg.solve(A, b)
-            vest[i, j] = theta[0] + theta[1] * t_np[i]
-
-    # validation
+    # validation (uncomment the next block and the figures will be exported in the session folder)
+    # signal_val_np = np.zeros((n_frames, 3))
+    # for i in range(n_frames):
+    #     signal_val_np[i, 0] = signal[i][0]  # extract x component at each time step
+    #     signal_val_np[i, 1] = signal[i][1]  # extract y component at each time step
+    #     signal_val_np[i, 2] = signal[i][2]  # extract z component at each time step
+    # temp = np.array(smooth_signal_list)
+    # smooth_signal_np = temp.transpose()
     # plt.figure()
-    # plt.plot(v_np[:, 0], label='raw')
+    # plt.plot(signal_val_np[:, 0], label='raw')
     # plt.ylabel(label)
     # plt.xlabel('sample')
-    # plt.plot(vest[:, 0], label='filtered')
+    # plt.plot(smooth_signal_np[:, 0], label='filtered')
     # plt.legend()
     # plt.savefig(output_dir + '/{}_x.pdf'.format(label))
 
     # plt.figure()
-    # plt.plot(v_np[:, 1], label='raw')
+    # plt.plot(signal_val_np[:, 1], label='raw')
     # plt.ylabel(label)
     # plt.xlabel('sample')
-    # plt.plot(vest[:, 1], label='filtered')
+    # plt.plot(smooth_signal_np[:, 1], label='filtered')
     # plt.legend()
     # plt.savefig(output_dir + '/{}_y.pdf'.format(label))
 
     # plt.figure()
-    # plt.plot(v_np[:, 2], label='raw')
+    # plt.plot(signal_val_np[:, 2], label='raw')
     # plt.ylabel(label)
     # plt.xlabel('sample')
-    # plt.plot(vest[:, 2], label='filtered')
+    # plt.plot(smooth_signal_np[:, 2], label='filtered')
     # plt.legend()
     # plt.savefig(output_dir + '/{}_z.pdf'.format(label))
     # plt.close('all')
 
-    return vest
+    return np.array(smooth_signal_list)
 
 def create_opensim_storage(time, data, column_names):
     """Creates a OpenSim::Storage.

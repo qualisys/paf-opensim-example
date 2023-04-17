@@ -13,7 +13,7 @@ import argparse
 import opensim as osim
 import numpy as np
 # import matplotlib.pyplot as plt # include this when generating plots to verify force zeroing
-from utils import create_opensim_storage, lowess_bell_shape_kern, mm_to_m, rotate_data_table
+from utils import create_opensim_storage, mm_to_m, rotate_data_table, lowpass_filter
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--c3d_dir', required=True, help="Path to c3d file")
@@ -91,9 +91,10 @@ def convert_c3d(c3d_dir, c3d_file):
 
     # interpolate and fit splines to smooth the data
     list_mat = list()
+    sample_rate = 1/(t[1]-t[0])
     for label in labels:
         f = forces.getDependentColumn(label)
-        list_mat.append(lowess_bell_shape_kern(t, f, label, tau=.00005, output_dir=c3d_dir))
+        list_mat.append(lowpass_filter(f, label, sample_rate, order=2, cutoff=10, padtype="odd", output_dir=c3d_dir))
 
     # construct the matrix of the forces (forces, moments, torques / right and left)
     # (type opensim.Matrix)
@@ -102,7 +103,7 @@ def convert_c3d(c3d_dir, c3d_file):
     for n in range(6):
         for j in range(3):
             for i in range(len(t)):
-                forces_task_mat.set(i, 3 * n + j, forces_task_np[n, i, j])
+                forces_task_mat.set(i, 3 * n + j, forces_task_np[n, j, i])
 
     # export forces
     labels_list = ['ground_force_vx', 'ground_force_vy', 'ground_force_vz',
