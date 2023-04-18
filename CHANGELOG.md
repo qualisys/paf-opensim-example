@@ -1,4 +1,8 @@
 # Changelog
+## [1.0.3]
+
+Replace the default force data filtering method with a traditional butterworth filter to avoid long processing times.
+
 ## [1.0.2]
 
 Tested with QTM 2022.2 build 7780.
