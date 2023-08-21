@@ -47,7 +47,7 @@ Analyses:
   Generate .trc and .mot:
     Type: Instantiate template
     Export session: Yes
-    Export measurements: c3d
+    Export measurements: [c3d, tsv]
     Template: Templates\RunProcessing.php
     Output file: log.txt
 

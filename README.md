@@ -128,4 +128,11 @@ Our official examples for various processing engines:
 - [Theia Markerless True Hybrid](https://github.com/qualisys/paf-theia-markerless-true-hybrid-example)
 - [Visual3D](https://github.com/qualisys/paf-visual3d-example)
 
+
+### EMG in OpenSim
+
+The EMG analysis can be added into OpenSim. For reference, there is an example repository with EMG analysis: [EMG-informed Computed Muscle Control for Dynamic Simulations of Movement]( https://simtk.org/projects/emg). To get an idea of the EMG format and data, you can examine the file  walk2EMG_filtered_normCMC.sto .
+Following the repository's guidelines, the basic steps to prepare a .sto file with EMG data: use the latest PAF OpenSim example, after generating the .mot and .trc files the EMG data will also be exported in the TSV format, normalize the EMG signal, filter the EMG signal, organize the data in the proper sequence, ensuring headers are correctly set in a TXT file and save it as an .sto file extension.
+
+
 _As of QTM version 2.17, the official Qualisys PAF examples can be used without any additional license. Note that some more advanced analysis types require a license for the "PAF Framework Developer kit" (Article number 150300)._
