@@ -1,4 +1,9 @@
 # Changelog
+
+## [1.0.4]
+
+Adding tsv export for analog data and instructions for using EMG in OpenSim.
+
 ## [1.0.3]
 
 Replace the default force data filtering method with a traditional butterworth filter to avoid long processing times.
