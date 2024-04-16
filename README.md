@@ -7,51 +7,37 @@ To download this example project to your computer, you can either:
 <br>_— or —_
 * Clone this repository to your computer.
 
-## Preparing Qualisys data for OpenSim processing
-### Preparation
-1. Install OpenSim 4.2, 4.3 or 4.4 from https://simtk.org/frs/index.php?group_id=91
-   1. Create an account on SimTK, download and install OpenSim. 
-   *Note: OpenSim versions before 4.2 did not support importing data from Type-3 force plates (Kistler) from c3d files exported from Qualisys Track Manager.*
-2. Choose the appropriate Python version
-   - If using OpenSim 4.2, then download Python 3.7.9 (64-bit) from https://www.python.org/ftp/python/3.7.9/python-3.7.9-amd64.exe.
-   - If using OpenSim 4.3 or 4.4, then download Python 3.8.10 (64-bit) from https://www.python.org/ftp/python/3.8.10/python-3.8.10-amd64.exe.
-3. Install Python software and packages
-   1. Select the option to Add Python to PATH and click "Install Now" in the first installation step.
-   2. Verify Python installation by starting a Windows Command prompt and entering:
-      ````
-      python --version
-      ````
-      This should return the python version that has been installed. If not, verify that your Python installation folder is listed in Windows Environment variables -> Path
-   3. Install Python packages  
-      Start a Windows command prompt and run:
-      ````
-      pip install numpy
-      pip install pandas
-      pip install scipy
-      pip install matplotlib
-      ````
-      Matplotlib is optional, only required if you want to generate graphs to verify force data processing.
-   4. Close the Windows Command Prompt.
-3. Connect Python with OpenSim
-   1. *(Only for OpenSim 4.2)* Insert OpenSim into the System Path:
-      1. Click the Windows Start icon and type "env". Click "Edit the system environment variables".
-      2. Click "Envrionment Variables" button at the bottom.
-      3. In "System Variables", locate "Path" and click Edit.
-      4. Click New and add "c:\\*OpenSim installation folder*\bin", for example: "C:\OpenSim 4.2\bin"
-      5. Delete any other OpenSim Path entries.
-   2. Run OpenSim setup file from command line:
-      1. Open a new Windows Command Prompt
-      2. Navigate to the OpenSim installation folder and locate the subfolder sdk\Python:
-         `cd C:\OpenSim 4.X\sdk\Python`
-      3. Run the setup script:
-         - If using OepnSim 4.2: `python setup.py install`
-         - If using OpenSim 4.3 or 4.4: `python setup_win_python38.py` then `python -m pip install .`
-      4. Test the installation by typing:
-         `python -c "import opensim"` 
-         If there is no error, the installation was successful.
-   Further information and other options can be found here: https://simtk-confluence.stanford.edu/display/OpenSim/Scripting+in+Python#ScriptinginPython-SettingupyourPythonscriptingenvironment (expand the section "Installing Anaconda and the "opensim" Python package")
-4. Re-start QTM in case it is open
 
+## Video Tutorial
+A video tutorial is available in the repository, providing an overview of how to use the PAF – OpenSim example. Please note, the video may become outdated in the future, but it still offers useful guidance if you encounter complications while converting *.c3d files to *.trc and *.mot files.
+
+## Preparing Qualisys Data for OpenSim Processing
+### Preparation
+1. Install Miniconda from [here](https://repo.anaconda.com/miniconda/Miniconda3-latest-Windows-x86_64.exe).
+ - During installation, ensure to check 'Add Miniconda3 to my PATH environment variable'.
+ > **Note:** If any other Python versions are installed in the future and added to the PATH list, which can shift Miniconda3's position in the list not to be the first, it may cause issues with activating environments. To resolve this, open the PATH list, move Miniconda3 to the first position, and then restart QTM. Or use manual conversion as described in the section 'Converting files from Anaconda Prompt' below.
+2. Install the opensim-example environment and libraries:
+ - Open the Anaconda Prompt (miniconda3) by pressing start and typing `miniconda`.
+ - Navigate to your downloaded `paf-opensim-example` project folder, where the `environment.yml` file is located.
+ - Change to the project directory in Anaconda Prompt (miniconda3) by typing:
+```
+cd "path to your paf-opensim-example project"
+```
+ - Prepare the environment and install all required libraries by running:
+```
+conda env create -f environment.yml
+```
+3. Test the installation by activating the environment and trying to import OpenSim:
+ ```
+ conda activate opensim_example
+ ```
+ and then
+ ```
+ python -c "import opensim"
+ ```
+  If there is no error, the installation was successful. Close the Anaconda Prompt (miniconda3) window.
+
+4. Re-start QTM in case it is open
 
 ### Converting files using QTM Project Automation Framework
 1. Start QTM and open the project 'OpenSim Example' in QTM
@@ -67,9 +53,23 @@ To download this example project to your computer, you can either:
 4. Right-click the session folder in the QTM Project view, select "Open folder in explorer" and locate .trc and .mot files.
 5. If the files are not generated, run the processing from the command line to get full error outputs (see next section).
 
-### Converting files from command line
-As an alternative to starting the conversion from QTM, you can start it from the command line using the file qtm2opensim.py (loacted in Templates folder):
-> python qtm2opensim.py --c3d_dir "[c3d file path]" --c3d_file "[c3d file name]"
+### Converting files from Anaconda Prompt
+An alternative way is converting *.c3d files from Anaconda Prompt (miniconda3).
+
+#### Step 1: Activate the OpenSim-Example Environment
+1. Open the Anaconda Prompt (miniconda3).
+2. Activate the OpenSim-Example environment by running:
+````
+conda activate opensim_example
+````
+3. In Anaconda Prompt (miniconda3) navigate to the Templates folder where the python script qtm2opensim.py is located by typing
+````
+cd "path to your Templates folder in paf-opensim-example project"
+````
+4. Then you can run qtm2opensim.py script and add the path where your *.c3d files to convert them to trc and mot files. To do that run in Anaconda Prompt (miniconda3) this command:
+````
+python qtm2opensim.py --c3d_dir "add path here where your c3d files located"
+````
 
 ### Using the exported files in OpenSim
 For detailed instructions or if you would like to use a different model, please refer to the OpenSim documentation.
@@ -119,7 +119,6 @@ The full documentation for PAF development is available here: [PAF Documentation
 
 Our official examples for various processing engines:
 
-- [AnyBody](https://github.com/qualisys/paf-anybody-example)
 - [Excel](https://github.com/qualisys/paf-excel-example)
 - [Matlab](https://github.com/qualisys/paf-matlab-example)
 - [OpenSim](https://github.com/qualisys/paf-opensim-example)
