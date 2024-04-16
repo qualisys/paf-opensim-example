@@ -15,7 +15,7 @@ A video tutorial is available in the repository, providing an overview of how to
 ### Preparation
 1. Install Miniconda from [here](https://repo.anaconda.com/miniconda/Miniconda3-latest-Windows-x86_64.exe).
  - During installation, ensure to check 'Add Miniconda3 to my PATH environment variable'.
- > **Note:** If any other Python versions are installed in the future and added to the PATH list, which can shift Miniconda3's position in the list not to be the first, it may cause issues with activating environments. To resolve this, open the PATH list, move Miniconda3 to the first position, and then restart QTM.
+ > **Note:** If any other Python versions are installed in the future and added to the PATH list, which can shift Miniconda3's position in the list not to be the first, it may cause issues with activating environments. To resolve this, open the PATH list, move Miniconda3 to the first position, and then restart QTM. Or use manual conversion as described in the section 'Converting files from Anaconda Prompt' below.
 2. Install the opensim-example environment and libraries:
  - Open the Anaconda Prompt (miniconda3) by pressing start and typing `miniconda`.
  - Navigate to your downloaded `paf-opensim-example` project folder, where the `environment.yml` file is located.
