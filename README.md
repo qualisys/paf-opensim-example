@@ -1,15 +1,15 @@
-# Qualisys PAF – OpenSim example
+# Qualisys PAF â€“ OpenSim example
 
 ## Getting started
 To download this example project to your computer, you can either:
 
 * [Click here](https://github.com/qualisys/paf-opensim-example/archive/refs/heads/main.zip) to download it as a zip file.
-<br>_— or —_
+<br>_â€” or â€”_
 * Clone this repository to your computer.
 
 
 ## Video Tutorial
-A video tutorial is available in the repository, providing an overview of how to use the PAF – OpenSim example. Please note, the video may become outdated in the future, but it still offers useful guidance if you encounter complications while converting *.c3d files to *.trc and *.mot files.
+A video tutorial is available in the repository, providing an overview of how to use the PAF â€“ OpenSim example. Please note, the video may become outdated in the future, but it still offers useful guidance if you encounter complications while converting *.c3d files to *.trc and *.mot files.
 
 ## Preparing Qualisys Data for OpenSim Processing
 ### Preparation
@@ -28,7 +28,10 @@ cd "path to your paf-opensim-example project"
 conda env create -f environment.yml
 ```
 3. Test the installation by activating the environment and trying to import OpenSim:
- conda activate opensim_example and then
+ ```
+ conda activate opensim_example
+ ```
+ and then
  ```
  python -c "import opensim"
  ```
@@ -63,7 +66,7 @@ conda activate opensim_example
 ````
 cd "path to your Templates folder in paf-opensim-example project"
 ````
-4. Then you can run qtm2opensim.py script and add the path where you *.c3d files to be converted to trc and mot files. To do that run in Anaconda Prompt (miniconda3) this command:
+4. Then you can run qtm2opensim.py script and add the path where your *.c3d files to convert them to trc and mot files. To do that run in Anaconda Prompt (miniconda3) this command:
 ````
 python qtm2opensim.py --c3d_dir "add path here where your c3d files located"
 ````
