@@ -1,23 +1,9 @@
-# Read c3d file exported from Qualisys Track Manager and write .trc and .mot file for OpenSim.
-#
-# Example usage:
-# https://github.com/qualisys/paf-resources/tree/master/OpenSim%20Example
-#
-# Inspired by:
-# https://github.com/mitkof6/opensim_automated_pipeline
-# https://simtk-confluence.stanford.edu/display/OpenSim/C3D+%28.c3d%29+Files#C3D(.c3d)Files-ReadingC3DfilesthroughPythonandC++
-##
-
 import os
 import argparse
+import scipy.signal
+import opensim
 import opensim as osim
 import numpy as np
-# import matplotlib.pyplot as plt # include this when generating plots to verify force zeroing
-from utils import create_opensim_storage, mm_to_m, rotate_data_table, lowpass_filter
-
-parser = argparse.ArgumentParser()
-parser.add_argument('--c3d_dir', required=True, help="Path to c3d file")
-parser.add_argument('--c3d_file', required=True, help="C3d file name")
 
 def convert_c3d(c3d_dir, c3d_file):
 
@@ -65,20 +51,7 @@ def convert_c3d(c3d_dir, c3d_file):
                 vec[j]=osim.Vec3(0,0,0)
         forces.setRowAtIndex(i,vec)
 
-    # Plot forces to verify
-    # for label in labels:
-    #     f = forces.getDependentColumn(label)
-    #     r = len(t)
-    #     v_np = np.zeros((r, 3))
-    #     for i in range(r):
-    #         v_np[i, 0] = f[i][0]  
-    #         v_np[i, 1] = f[i][1]
-    #         v_np[i, 2] = f[i][2]  
-    #     plt.plot(t, v_np[0:, 2])
-    #     plt.title(label)
-    #     plt.show()
-
-    # Rotate forces (Assumes that z is pointing up vertically in QTM)
+     # Rotate forces (Assumes that z is pointing up vertically in QTM)
     rotate_data_table(forces, [1, 0, 0], 90)
     rotate_data_table(forces, [0, 1, 0], 180)
     rotate_data_table(forces, [0, 0, 1], 180)
@@ -116,7 +89,94 @@ def convert_c3d(c3d_dir, c3d_file):
     force_sto.setName('GRF')
     force_sto.printResult(force_sto, c3d_file.replace('.c3d',''), c3d_dir, 0.001, '.mot')
 
+def rotate_data_table(table, axis, deg):
+    """
+    Efficiently rotate data in an OpenSim Table.
+    """
+    R = opensim.Rotation(np.deg2rad(deg), opensim.Vec3(axis[0], axis[1], axis[2]))
+    for i in range(table.getNumRows()):
+        vec = table.getRowAtIndex(i)
+        vec_rotated = R.multiply(vec)
+        table.setRowAtIndex(i, vec_rotated)
+
+def mm_to_m(table, label):
+    """
+    Convert measurements from millimeters to meters in an OpenSim Table.
+    """
+    c = table.updDependentColumn(label)
+    for i in range(c.size()):
+        c[i] = opensim.Vec3(c[i][0] * 0.001, c[i][1] * 0.001, c[i][2] * 0.001)
+
+def get_valid_padlen(signal, A, B):
+    """ if signal is too short the defaultpadlen needs to change in order for the scipy filtfilt to work with padding """
+    padlen = 3 * max(len(A), len(B))  # from scipy default
+    signal_length = len(signal)
+    if signal_length <= padlen:
+        padlen = signal_length - 1
+    return padlen
+
+def lowpass_filter(signal, label, sampling_freq, order=4, cutoff=12, padtype="odd", output_dir='.'):
+     
+    # instantiate variables
+    n_frames = signal.nrow()
+    signal_np = np.zeros((n_frames))
+    smooth_signal_list = []
+    # filter settings
+    nyq = 0.5 * sampling_freq
+    # The double filter should have 1/sqrt(2) transfer at cutoff, so we need correction for filter order
+    cutoff = cutoff / (np.sqrt(2) - 1) ** (0.5 / order)
+    Wn = cutoff / nyq
+    B, A = scipy.signal.butter(order, Wn, output="ba")
+    # convert Vec3 into np.array
+    for i in range(3):
+        for j in range(n_frames):
+            signal_np[j] = signal[j][i]  # extract component at each time step
+        
+        # padding
+        padlen = get_valid_padlen(signal_np, A, B)
+
+        # smoothing
+        smooth_signal_list.append(scipy.signal.filtfilt(B, A, signal_np, padtype=padtype, padlen=padlen))
+
+
+    return np.array(smooth_signal_list)
+
+def create_opensim_storage(time, data, column_names):
+
+    sto = opensim.Storage()
+    sto.setColumnLabels(list_to_osim_array_str(['time'] + column_names))
+    for i in range(data.nrow()):
+        row = opensim.ArrayDouble()
+        for j in range(data.ncol()):
+            row.append(data.get(i, j))
+
+        sto.append(time[i], row)
+
+    return sto
+
+def list_to_osim_array_str(list_str):
+    """Convert Python list of strings to OpenSim::Array<string>."""
+    arr = opensim.ArrayStr()
+    for element in list_str:
+        arr.append(element)
+
+    return arr
 # start convert_c3d when running directly from command line
-if __name__ == '__main__':
+
+
+def main():
+    parser = argparse.ArgumentParser(description="Process C3D files with OpenSim.")
+    parser.add_argument('--c3d_dir', type=str, required=True, help="Directory containing C3D files")
     args = parser.parse_args()
-    convert_c3d(args.c3d_dir, args.c3d_file)
+
+    c3d_dir = args.c3d_dir
+
+    # Your existing code to process C3D files
+    for file_name in os.listdir(c3d_dir):
+        if file_name.endswith('.c3d'):
+            convert_c3d(c3d_dir, file_name)
+
+# Ensure your existing functions like convert_c3d are included here
+
+if __name__ == '__main__':
+    main()
