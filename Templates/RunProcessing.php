@@ -7,7 +7,7 @@ $work_dir = str_replace('\\', '\\\\', $working_directory);
 $batch_file_path = $temp_dir . DIRECTORY_SEPARATOR . 'run_opensim_example.bat';
 
 // Prepare the command to run the batch file, now passing the working directory path as an argument
-$command = 'cd ' . escapeshellarg($temp_dir) . ' && cmd /c start cmd /k "' . $batch_file_path . ' ' . escapeshellarg($work_dir) . '"';
+$command = 'cd "' . escapeshellarg($temp_dir) . '" && cmd /c start cmd /k "' . escapeshellarg($batch_file_path) . ' ' . escapeshellarg($work_dir) . '"';
 
 // Execute the command within a new Command Prompt window
 exec($command);
