@@ -114,11 +114,13 @@ The purpose of the ***Project Automation Framework*** (PAF) is to streamline the
 
 The full documentation for PAF development is available here: [PAF Documentation](https://github.com/qualisys/paf-documentation).
 
-
 ### PAF Examples
 
 Our official examples for various processing engines:
 
+- [AnyBody](https://github.com/qualisys/paf-anybody-example)
+- [Cleanse](https://github.com/qualisys/paf-cleanse-example)
+- [ENABLE](https://github.com/qualisys/paf-enable-markerless-example)
 - [Excel](https://github.com/qualisys/paf-excel-example)
 - [Matlab](https://github.com/qualisys/paf-matlab-example)
 - [OpenSim](https://github.com/qualisys/paf-opensim-example)
@@ -127,7 +129,6 @@ Our official examples for various processing engines:
 - [Theia Markerless Comparison](https://github.com/qualisys/paf-theia-markerless-comparison-example)
 - [Theia Markerless True Hybrid](https://github.com/qualisys/paf-theia-markerless-true-hybrid-example)
 - [Visual3D](https://github.com/qualisys/paf-visual3d-example)
-
 
 ### EMG in OpenSim
 
