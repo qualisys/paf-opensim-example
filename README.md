@@ -125,7 +125,11 @@ The PAF OpenSim example uses native QTM export functionality:
 4. **X-Quantity** → Select **Time**
 5. In **Curves List**: Select figure → **Add**
 
-### Additional Resources
+## EMG in OpenSim
+
+EMG analysis can be integrated with OpenSim. Reference example: [EMG-informed Computed Muscle Control for Dynamic Simulations of Movement](https://simtk.org/projects/emg).
+
+## Additional Resources
 - [OpenSim documentation](https://opensimconfluence.atlassian.net/wiki/spaces/OpenSim/overview)
 - [Tutorial 3 - Scaling, Inverse Kinematics, and Inverse Dynamics](https://opensimconfluence.atlassian.net/wiki/spaces/OpenSim/pages/53089741/Tutorial+3+-+Scaling+Inverse+Kinematics+and+Inverse+Dynamics)
 
@@ -149,21 +153,6 @@ Official examples for various processing engines:
 - [Theia Markerless Comparison](https://github.com/qualisys/paf-theia-markerless-comparison-example)
 - [Theia Markerless True Hybrid](https://github.com/qualisys/paf-theia-markerless-true-hybrid-example)
 - [Visual3D](https://github.com/qualisys/paf-visual3d-example)
-
-### EMG in OpenSim
-
-EMG analysis can be integrated with OpenSim. Reference example: [EMG-informed Computed Muscle Control for Dynamic Simulations of Movement](https://simtk.org/projects/emg).
-
-To understand EMG format and data, examine: `walk2EMG_filtered_normCMC.sto`
-
-**Basic workflow for preparing EMG .sto files:**
-1. Use latest PAF OpenSim example
-2. Generate .sto and .trc files (EMG data exports in TSV format)
-3. Normalize EMG signal
-4. Filter EMG signal
-5. Organize data in proper sequence
-6. Ensure correct headers in TXT file
-7. Save with .sto file extension
 
 ---
 
