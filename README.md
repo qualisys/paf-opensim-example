@@ -141,7 +141,6 @@ Official examples for various processing engines:
 
 - [AnyBody](https://github.com/qualisys/paf-anybody-example)
 - [Cleanse](https://github.com/qualisys/paf-cleanse-example)
-- [ENABLE](https://github.com/qualisys/paf-enable-markerless-example)
 - [Excel](https://github.com/qualisys/paf-excel-example)
 - [Matlab](https://github.com/qualisys/paf-matlab-example)
 - [OpenSim](https://github.com/qualisys/paf-opensim-example)
