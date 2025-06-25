@@ -38,7 +38,7 @@ The PAF OpenSim example uses native QTM export functionality:
 6. **Locate exported files**:
    - Right-click session folder in QTM Project view
    - Select "Open folder in explorer"
-   - Find .trc and .mot files
+   - Find .trc and .sto files
 
 ### Option 2: Single Export from QTM Trial
 - Open a qtm trial then go to **File** → **Export** → **To TRC…** or **To STO…**
