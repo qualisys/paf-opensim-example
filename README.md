@@ -61,7 +61,6 @@ The PAF OpenSim example uses native QTM export functionality:
 1. Start **OpenSim 4.5**
 2. Load OpenSim model:
    - Model location for different marker sets: `paf-opensim-example-main\Templates\OpenSim`
-   - **Recommended**: copy correct model to your TRC/STO file location
    - **File** → **Open Model** → Navigate to `gait2392_simbody_....osim`
 
 ### Step 2: Scale the Model
