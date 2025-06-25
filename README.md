@@ -126,8 +126,8 @@ The PAF OpenSim example uses native QTM export functionality:
 5. In **Curves List**: Select figure → **Add**
 
 ### Additional Resources
-- [How to Use the Inverse Dynamics Tool](https://simtk-confluence.stanford.edu/display/OpenSim/How+to+Use+the+Inverse+Dynamics+Tool)
-- [Tutorial 3 - Scaling, Inverse Kinematics, and Inverse Dynamics](https://simtk-confluence.stanford.edu/display/OpenSim/Tutorial+3+-+Scaling%2C+Inverse+Kinematics%2C+and+Inverse+Dynamics)
+- [OpenSim documentation](https://opensimconfluence.atlassian.net/wiki/spaces/OpenSim/overview)
+- [Tutorial 3 - Scaling, Inverse Kinematics, and Inverse Dynamics](https://opensimconfluence.atlassian.net/wiki/spaces/OpenSim/pages/53089741/Tutorial+3+-+Scaling+Inverse+Kinematics+and+Inverse+Dynamics)
 
 ## Resources for Qualisys Project Automation Framework (PAF)
 
