@@ -12,10 +12,10 @@ A video tutorial is available in the repository, providing an overview of how to
 
 ## Preparing Qualisys Data for OpenSim Processing
 
-> **Note:** QTM 2025.1 introduces new export features for TRC (marker data) and STO (force data) files. Exports can now be performed directly within QTM and through any PAF modules. OpenSim models with Sport, CAST, and IOR marker sets are available in this repository at: `paf-opensim-example-main\Templates\OpenSim`
+> **Note:** QTM 2025.1 Update 1 introduces new export features for TRC (marker data) and STO (force data) files. Exports can now be performed directly within QTM and through any PAF modules. OpenSim models with Sport, CAST, and IOR marker sets are available in this repository at: `paf-opensim-example-main\Templates\OpenSim`
 
 ### Prerequisites
-- Install the latest QTM version available at the [Qualisys website](https://www.qualisys.com)
+- Install QTM 2025.1 Update 1 or later from [Qualisys website](https://www.qualisys.com)
 
 ## Export Options
 
