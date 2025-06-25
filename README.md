@@ -121,7 +121,7 @@ The PAF OpenSim example uses native QTM export functionality:
 #### 4.5 Plot Results
 1. **Tools** → **Plot**
 2. **Y-Quantity** → **Load File** → Select `inverse_dynamics.sto`
-3. Select desired signals (for example ankle_ankle_r_moment) → **OK**
+3. Select desired signals (for example ankle_angle_r_moment) → **OK**
 4. **X-Quantity** → Select **Time**
 5. In **Curves List**: Select figure → **Add**
 
