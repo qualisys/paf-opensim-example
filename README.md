@@ -53,17 +53,6 @@ The PAF OpenSim example uses native QTM export functionality:
 5. Press **OK**
 6. Files are exported to same folder as QTM trials
 
-### Option 4: Export from PAF Modules (Session Level)
-1. Open recorded session data in any PAF module
-2. **For single file**:
-   - Click once on any trial
-   - Click with a right mouse button and select **Batch Export**
-   - Enable **Export to TRC file** and **Export to STO file**
-3. **For multiple files**:
-   - Select multiple QTM files using **Ctrl + click**
-   - Left-click → **Batch Export**
-   - Enable **Export to TRC file** and **Export to STO file**
-
 ## Using Exported Files in OpenSim
 
 > **Note:** For detailed instructions or to use a different model, please refer to the [OpenSim documentation](https://simtk-confluence.stanford.edu/display/OpenSim).
