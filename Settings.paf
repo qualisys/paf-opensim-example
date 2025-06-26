@@ -1,7 +1,7 @@
 Project ID: Open PAF OpenSim Example
 Package Information:
   Name: OpenSim Example
-  Version: 1.0.6
+  Version: 1.0.7
   Required QTM version: 2.16.3600
   Encoding bytes: €€€€€
 
@@ -23,7 +23,7 @@ Types:
     Session:
       Fields: [Session ID, Operator]
       Measurements: [Static, Dynamic]
-      Analyses: [Generate .trc and .mot]
+      Analyses: [Generate .trc and .sto]
       Display order: [Session ID, Operator, Comments]
       Directory pattern: $Creation date$_$Session ID$
 
@@ -44,10 +44,10 @@ Measurements:
     AIM models: Dynamic.qam
 
 Analyses:
-  Generate .trc and .mot:
+  Generate .trc and .sto:
     Type: Instantiate template
     Export session: Yes
-    Export measurements: [c3d, tsv]
+    Export measurements: [trc, sto]
     Template: Templates\RunProcessing.php
     Output file: log.txt
 
