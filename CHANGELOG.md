@@ -1,12 +1,15 @@
 # Changelog
 
+## [1.0.9]
+- Tested with QTM 2026.2 build 17495 and OpenSim 4.5.
+
 ## [1.0.8]
 - Tested with QTM 2026.1 build 16751 and OpenSim 4.5.
 
 ## [1.0.7]
 ### Added
 - Native export to OpenSim formats directly from QTM - no Python scripts required
-- Full compatability with QTM 2025.1 build 15267
+- Tested with QTM 2025.1 build 15267 and OpenSim 4.5.
 
 ### Changed
 - Removed dependency on external Python scripts for OpenSim export workflow
