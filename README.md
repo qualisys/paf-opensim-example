@@ -156,4 +156,4 @@ Official examples for various processing engines:
 
 ---
 
-> **License Note:** As of QTM version 2.17, official Qualisys PAF examples can be used without additional license. Advanced analysis types require "PAF Framework Developer kit" license (Article number 150300).
+> **License Note:** As of QTM version 2.17, official Qualisys PAF examples can be used without additional license.
